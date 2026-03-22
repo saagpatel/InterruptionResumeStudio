@@ -41,6 +41,7 @@ pub fn generate_bindings() -> Builder<tauri::Wry> {
     ])
 }
 
+#[cfg(any(debug_assertions, test))]
 pub fn export_ts_bindings() {
     generate_bindings()
         .export(

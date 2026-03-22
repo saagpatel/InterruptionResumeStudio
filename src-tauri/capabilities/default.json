@@ -1,0 +1,26 @@
+{
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "default",
+	"description": "Capability for the main window — no HTTP, no network",
+	"windows": ["main"],
+	"permissions": [
+		"core:default",
+		"core:window:allow-minimize",
+		"core:window:allow-maximize",
+		"core:window:allow-toggle-maximize",
+		"core:window:allow-close",
+		"core:window:allow-set-fullscreen",
+		"core:window:allow-is-maximized",
+		"core:window:allow-is-fullscreen",
+		"core:window:default",
+		"core:window:allow-start-dragging",
+		"core:webview:allow-create-webview-window",
+		"core:event:default",
+		"dialog:default",
+		"log:default",
+		"process:default",
+		"os:default",
+		"global-shortcut:default",
+		"notification:default"
+	]
+}

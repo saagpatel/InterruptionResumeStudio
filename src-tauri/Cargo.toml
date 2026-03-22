@@ -1,0 +1,49 @@
+[package]
+name = "interruption-resume-studio"
+version = "0.1.0"
+description = "Capture cognitive work context during interruptions, resume with full context"
+authors = ["Danny Smith"]
+edition = "2021"
+rust-version = "1.82"
+
+[lib]
+name = "interruption_resume_studio_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["macos-private-api", "tray-icon", "image-png"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri-plugin-dialog = "2"
+tauri-plugin-log = "2"
+tauri-plugin-process = "2"
+tauri-plugin-os = "2"
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-notification = "2"
+log = "0.4"
+sqlx = { version = "0.8", features = ["sqlite", "runtime-tokio"] }
+
+# Type-safe Tauri command bindings
+specta = { version = "=2.0.0-rc.22", features = ["derive", "serde_json"] }
+tauri-specta = { version = "=2.0.0-rc.21", features = ["typescript"] }
+specta-typescript = "=0.0.9"
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-single-instance = "2"
+tauri-plugin-window-state = "2"
+
+# macOS-only: NSPanel for native panel behavior (overlay window)
+[target.'cfg(target_os = "macos")'.dependencies]
+tauri-nspanel = { git = "https://github.com/ahkohd/tauri-nspanel", branch = "v2.1" }
+
+# Optimize for smaller binary size in release builds
+[profile.release]
+codegen-units = 1        # Better LLVM optimization (slower build, smaller binary)
+lto = true               # Link-time optimizations
+opt-level = "s"          # Optimize for size over speed
+panic = "abort"          # Don't include panic unwinding code
+strip = true             # Remove debug symbols
+

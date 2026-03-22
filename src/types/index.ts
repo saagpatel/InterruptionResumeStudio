@@ -6,7 +6,8 @@ export type AppView =
 	| "history"
 	| "log"
 	| "timeline"
-	| "insights";
+	| "insights"
+	| "settings";
 
 export interface Snapshot {
 	id: number;

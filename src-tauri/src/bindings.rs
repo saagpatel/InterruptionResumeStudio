@@ -2,8 +2,8 @@ use tauri_specta::{collect_commands, Builder};
 
 pub fn generate_bindings() -> Builder<tauri::Wry> {
     use crate::commands::{
-        app_state_cmd, export_cmd, hotkey, log_cmd, overlay, preferences, reports_cmd, resume_cmd,
-        snapshot_cmd,
+        app_state_cmd, export_cmd, hotkey, import_cmd, log_cmd, overlay, preferences, reports_cmd,
+        resume_cmd, snapshot_cmd,
     };
 
     Builder::<tauri::Wry>::new().commands(collect_commands![
@@ -32,8 +32,9 @@ pub fn generate_bindings() -> Builder<tauri::Wry> {
         // Accessibility
         hotkey::check_accessibility,
         hotkey::open_accessibility_settings,
-        // Export
+        // Export / Import
         export_cmd::export_snapshots,
+        import_cmd::import_snapshots,
         // App State
         app_state_cmd::get_app_state,
         app_state_cmd::set_app_state,

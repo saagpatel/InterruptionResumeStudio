@@ -12,6 +12,7 @@ import {
 	List,
 	PauseCircle,
 	Play,
+	Settings2,
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { DayTimeline } from "./components/DayTimeline";
@@ -20,6 +21,7 @@ import { Insights } from "./components/Insights";
 import { InterruptionLog } from "./components/InterruptionLog";
 import { Onboarding } from "./components/Onboarding";
 import { ResumeCard } from "./components/ResumeCard";
+import { Settings } from "./components/Settings";
 import { SnapshotForm } from "./components/SnapshotForm";
 import { SnapshotHistory } from "./components/SnapshotHistory";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -46,6 +48,7 @@ const NAV_ITEMS: {
 	{ view: "log", label: "Log", icon: List, shortcut: "L" },
 	{ view: "timeline", label: "Timeline", icon: GanttChart, shortcut: "T" },
 	{ view: "insights", label: "Insights", icon: BarChart3, shortcut: "I" },
+	{ view: "settings", label: "Settings", icon: Settings2, shortcut: "S" },
 ];
 
 function AppContent() {
@@ -150,6 +153,9 @@ function AppContent() {
 				case "i":
 					setActiveView("insights");
 					break;
+				case "s":
+					setActiveView("settings");
+					break;
 			}
 		};
 
@@ -215,6 +221,7 @@ function AppContent() {
 				{activeView === "log" && <InterruptionLog />}
 				{activeView === "timeline" && <DayTimeline />}
 				{activeView === "insights" && <Insights />}
+				{activeView === "settings" && <Settings />}
 			</main>
 		</div>
 	);

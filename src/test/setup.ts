@@ -81,6 +81,9 @@ vi.mock("@/lib/bindings", () => ({
 				by_hour: [],
 			},
 		}),
+		importSnapshots: vi
+			.fn()
+			.mockResolvedValue({ status: "ok", data: { imported: 0, skipped: 0 } }),
 	},
 }));
 

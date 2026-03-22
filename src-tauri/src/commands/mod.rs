@@ -1,6 +1,7 @@
 pub mod app_state_cmd;
 pub mod export_cmd;
 pub mod hotkey;
+pub mod import_cmd;
 pub mod log_cmd;
 pub mod overlay;
 pub mod preferences;

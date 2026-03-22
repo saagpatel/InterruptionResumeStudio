@@ -135,3 +135,20 @@ pub async fn get_weekly_report(app: AppHandle, week_offset: i32) -> Result<Weekl
         by_hour,
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_day_names() {
+        assert_eq!(DAY_NAMES.len(), 7);
+        assert_eq!(DAY_NAMES[0], "Sun");
+        assert_eq!(DAY_NAMES[1], "Mon");
+        assert_eq!(DAY_NAMES[2], "Tue");
+        assert_eq!(DAY_NAMES[3], "Wed");
+        assert_eq!(DAY_NAMES[4], "Thu");
+        assert_eq!(DAY_NAMES[5], "Fri");
+        assert_eq!(DAY_NAMES[6], "Sat");
+    }
+}

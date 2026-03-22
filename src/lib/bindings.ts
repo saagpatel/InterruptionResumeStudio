@@ -157,6 +157,14 @@ async exportSnapshots(path: string) : Promise<Result<number, string>> {
     else return { status: "error", error: e  as any };
 }
 },
+async importSnapshots(path: string) : Promise<Result<ImportResult, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("import_snapshots", { path }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
 async getAppState(key: string) : Promise<Result<string | null, string>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_app_state", { key }) };
@@ -190,6 +198,7 @@ export type DayCount = { day: number; day_name: string; count: number; time_lost
 export type DayTimelineEntry = { snapshot: Snapshot; gap_before_seconds: number | null }
 export type EnergyCount = { energy_state: string; count: number }
 export type HourCount = { hour: number; count: number }
+export type ImportResult = { imported: number; skipped: number }
 export type InterruptionLogEntry = { snapshot: Snapshot; time_away_seconds: number | null; interruption_display: string }
 export type InterruptionLogResult = { entries: InterruptionLogEntry[]; total_interruptions: number; total_time_lost_seconds: number }
 export type ResumeCard = { snapshot: Snapshot; away_duration_seconds: number; is_stale: boolean }

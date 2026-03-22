@@ -142,3 +142,32 @@ fn capitalize(s: &str) -> String {
         None => String::new(),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_format_duration_short() {
+        assert_eq!(format_duration_short(0), "0s");
+        assert_eq!(format_duration_short(45), "45s");
+        assert_eq!(format_duration_short(59), "59s");
+        assert_eq!(format_duration_short(60), "1m");
+        assert_eq!(format_duration_short(90), "1m");
+        assert_eq!(format_duration_short(3599), "59m");
+        assert_eq!(format_duration_short(3600), "1h");
+        assert_eq!(format_duration_short(3900), "1h 5m");
+        assert_eq!(format_duration_short(7200), "2h");
+        assert_eq!(format_duration_short(7260), "2h 1m");
+    }
+
+    #[test]
+    fn test_capitalize() {
+        assert_eq!(capitalize("hello"), "Hello");
+        assert_eq!(capitalize(""), "");
+        assert_eq!(capitalize("a"), "A");
+        assert_eq!(capitalize("HELLO"), "HELLO");
+        assert_eq!(capitalize("meeting"), "Meeting");
+        assert_eq!(capitalize("slack"), "Slack");
+    }
+}

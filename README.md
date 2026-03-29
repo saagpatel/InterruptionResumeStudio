@@ -1,102 +1,63 @@
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6?logo=typescript&logoColor=white) ![Tauri](https://img.shields.io/badge/Tauri-2.x-ffc131?logo=tauri&logoColor=white) ![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-sqlx-003b57?logo=sqlite&logoColor=white) ![License](https://img.shields.io/badge/license-unlicensed-lightgrey)
-
 # Interruption Resume Studio
 
-Capture cognitive work context during interruptions, resume with full context. Tauri 2 + React + TypeScript + SQLite.
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript)](#) [![Rust](https://img.shields.io/badge/Rust-dea584?style=flat-square&logo=rust)](#) [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#)
 
-## What It Does
+> The 30 seconds you spend capturing context before you switch tasks is worth more than the 10 minutes you spend reconstructing it afterward.
 
-Interruption Resume Studio is a native desktop app that captures a structured snapshot of what you were doing at the moment you get interrupted — the current task, progress so far, your next planned step, energy state, and any open questions. When you return, a **Resume Card** surfaces the full context so you can re-enter flow without having to reconstruct it from scratch.
+Interruption Resume Studio is a native desktop app that captures a structured snapshot of your cognitive state the moment you get interrupted — current task, progress, next planned step, energy level, and open questions. When you return, a Resume Card surfaces everything you need to re-enter flow without reconstructing it from scratch. A global shortcut (`Cmd+Shift+I`) opens a lightweight overlay from any app without breaking your current context.
 
-The app also tracks interruption patterns over time: a day timeline shows when snapshots were captured and the gaps between them, an interruption log quantifies time lost per session, and a weekly insights view breaks down interruptions by type (meeting, Slack, personal, other), energy state, hour of day, and day of week. A global keyboard shortcut opens a lightweight overlay window for capturing snapshots without leaving your current app.
+The app also tracks interruption patterns over time: daily timeline, interruption log with time-lost estimates, and weekly insights broken down by interruption type, energy state, hour of day, and day of week.
+
+## Features
+
+- **Snapshot capture** — structured form captures task, progress, next step, energy, and open questions in under 30 seconds
+- **Resume Cards** — on return, a card surfaces the full context snapshot so you re-enter flow immediately
+- **Global shortcut** — `Cmd+Shift+I` opens an overlay window without leaving your current app
+- **Day timeline** — visual timeline of snapshots showing interruption gaps throughout the day
+- **Interruption log** — quantified time lost per session
+- **Weekly insights** — breakdowns by interruption type (meeting, Slack, personal, other), energy state, hour, and day
+- **Native overlay** — uses `tauri-nspanel` for proper fullscreen overlay behavior on macOS
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js 20+
+- Rust 1.82+ (`rustup`)
+- Tauri system dependencies: [tauri.app/start/prerequisites](https://tauri.app/start/prerequisites/)
+
+### Installation
+
+```bash
+git clone https://github.com/saagpatel/InterruptionResumeStudio
+cd InterruptionResumeStudio
+npm install
+```
+
+### Usage
+
+```bash
+# Start in development mode
+npm run tauri:dev
+
+# Build release binary
+npm run tauri:build
+```
 
 ## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Desktop shell | Tauri 2 (`tauri-plugin-global-shortcut`, `tauri-plugin-notification`, `tauri-nspanel`) |
+|-------|------------|
+| Desktop shell | Tauri 2 (`tauri-plugin-global-shortcut`, `tauri-nspanel`) |
 | Frontend | React 19, TypeScript 5, Tailwind CSS 4, Radix UI, Zustand, TanStack Query |
 | Backend | Rust 1.82+, SQLite via `sqlx` |
 | Type safety | `specta` + `tauri-specta` for generated TypeScript bindings |
 | Testing | Vitest, Testing Library |
 
-## Prerequisites
+## Architecture
 
-- Node.js 20+
-- Rust 1.82+ (via `rustup`)
-- Tauri CLI v2 (`cargo install tauri-cli --version "^2"`)
-- macOS 10.15+ (primary target; Windows/Linux configs included)
-
-## Getting Started
-
-```bash
-# Install frontend dependencies
-npm install
-
-# Start in development mode (Vite dev server + Tauri)
-npm run tauri:dev
-
-# Build a release binary
-npm run tauri:build
-```
-
-## Project Structure
-
-```
-InterruptionResumeStudio/
-├── src/                        # React frontend
-│   ├── components/             # UI components (ResumeCard, SnapshotForm, DayTimeline, Insights, …)
-│   ├── hooks/                  # Custom React hooks
-│   ├── lib/                    # Tauri bindings, logger, time utils
-│   ├── store/                  # Zustand app store
-│   ├── types/                  # Shared TypeScript types
-│   ├── App.tsx                 # Root component + nav
-│   └── overlay-main.tsx        # Entry point for the global-shortcut overlay window
-├── src-tauri/                  # Rust backend
-│   ├── src/
-│   │   ├── commands/           # Tauri command handlers
-│   │   ├── db/                 # SQLite schema + query layer
-│   │   ├── types.rs            # Shared types (Snapshot, ResumeCard, WeeklyReport, …)
-│   │   ├── bindings.rs         # specta-generated TypeScript bindings export
-│   │   └── lib.rs / main.rs    # App setup and plugin registration
-│   └── tauri.conf.json         # App config (also .linux / .macos / .windows variants)
-├── overlay.html                # Separate HTML entry for the overlay window
-└── scripts/                    # Release prep and task management scripts
-```
-
-## Key Views
-
-| View | Shortcut | Purpose |
-|------|----------|---------|
-| Resume | `R` | Resume card for the most recent unresumed snapshot |
-| Snapshot | `N` | Capture a new work context snapshot |
-| History | `H` | Browsable list of all past snapshots |
-| Log | `L` | Interruption log with time-lost totals |
-| Timeline | `T` | Day timeline with gap visualization |
-| Insights | `I` | Weekly analytics by type, energy, hour, and day |
-| Settings | `S` | Theme, overlay shortcut, data import/export |
-
-<!-- TODO: Add screenshot -->
-
-## Development
-
-```bash
-# Run frontend tests
-npm run test
-
-# Run Rust tests
-npm run rust:test
-
-# Run all checks (typecheck, lint, format, clippy, tests)
-npm run check:all
-
-# Auto-fix lint + format issues
-npm run fix:all
-
-# Generate Rust → TypeScript type bindings
-npm run rust:bindings
-```
+All snapshot data is stored in a local SQLite database via `sqlx`. The Rust backend handles persistence and pattern aggregation; the React frontend handles capture forms, resume cards, and analytics views. TypeScript bindings are generated from Rust types via `specta`, giving compile-time safety across the bridge. The overlay window is a separate Tauri window using `tauri-nspanel` so it renders above fullscreen apps on macOS.
 
 ## License
 
-No license file is present in this repository.
+Unlicensed

@@ -1,6 +1,6 @@
 [package]
 name = "interruption-resume-studio"
-version = "0.1.0"
+version = "1.0.0"
 description = "Capture cognitive work context during interruptions, resume with full context"
 authors = ["Danny Smith"]
 edition = "2021"

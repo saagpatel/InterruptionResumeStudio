@@ -45,3 +45,55 @@ See IMPLEMENTATION-ROADMAP.md for full phase details and acceptance criteria.
 - Do not make any network requests — this app is 100% local; add `"http": { "all": false }` to Tauri capabilities
 - Do not use class components — React hooks only throughout
 - Do not store any user data outside `~/Library/Application Support/interruption-resume-studio/`
+
+<!-- portfolio-context:start -->
+# Portfolio Context
+
+## What This Project Is
+
+A native macOS desktop app (Tauri 2.0 + React + TypeScript + SQLite) that captures cognitive work context via global hotkey overlay, menu bar, or manual entry — and surfaces a structured resume card on return. No cloud, no accounts, 100% local. Built for the user's own daily deep-work protection.
+
+## Current State
+
+**Phase 0: Scaffold + DB**
+See IMPLEMENTATION-ROADMAP.md for full phase details and acceptance criteria.
+
+## Stack
+
+- Rust / Tauri: 2.x stable
+- Frontend: React 19.x (hooks only, no class components)
+- Language: TypeScript 5.x (strict mode)
+- Styling: Tailwind CSS 4.x
+- Database: SQLite via sqlx 0.8.x (Rust-side, not tauri-plugin-sql)
+- Type-safe bridge: tauri-specta (auto-generated TS bindings from Rust commands)
+- State: Zustand 5.x
+- Date/Time: date-fns 3.x
+- Icons: Lucide React 0.561.x
+- Hotkey: tauri-plugin-global-shortcut 2.x
+- Overlay: tauri-nspanel (macOS NSPanel for floating panel behavior)
+- Scaffolded from: dannysmith/tauri-template
+
+## How To Run
+
+```bash
+# Start in development mode
+npm run tauri:dev
+
+# Build release binary
+npm run tauri:build
+```
+
+## Known Risks
+
+- Do not add features not in the current phase of IMPLEMENTATION-ROADMAP.md
+- Do not use localStorage, sessionStorage, or any browser storage — all persistence is SQLite via Rust commands
+- Do not create/destroy the overlay window on each hotkey press — show/hide a pre-loaded WebviewWindow only
+- Do not make any network requests — this app is 100% local; add `"http": { "all": false }` to Tauri capabilities
+- Do not use class components — React hooks only throughout
+- Do not store any user data outside `~/Library/Application Support/interruption-resume-studio/`
+
+## Next Recommended Move
+
+Use this context plus the README and supporting docs to resume the next active task, then promote the repo beyond minimum-viable by capturing a dedicated handoff, roadmap, or discovery artifact.
+
+<!-- portfolio-context:end -->

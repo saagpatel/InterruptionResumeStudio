@@ -51,16 +51,17 @@ work in flight, not minor drift.
 
 Interruption Resume Studio is a Tauri 2 desktop app for capturing
 cognitive snapshots at interruption time. Workflow: a global
-shortcut (`Cmd+Shift+I`) opens a `tauri-nspanel`-backed overlay
+shortcut (`Cmd+Shift+Space`) opens a `tauri-nspanel`-backed overlay
 window from any app; user fills a structured form (current task /
 progress / next step / energy / open questions) in under 30
 seconds; on return, a Resume Card surfaces the snapshot so re-entry
 is one-glance. The app also tracks interruption patterns: day
 timeline, interruption log with time-lost estimates, weekly
-insights by interruption type / energy / hour / day. Per memory:
-Phases 0-4 complete. v1.0.0 on origin/main with `.dmg` build deps,
-reverse-DNS bundle ID fix, and CSP unsafe-inline removed
-(stricter security than baseline Tauri CSP cluster sibling).
+insights by interruption type / energy / hour / day. Phases 0-3
+complete plus Settings, Insights, and JSON Import. v1.0.0 on
+origin/main with `.dmg` build deps, reverse-DNS bundle ID fix, and
+CSP unsafe-inline removed (stricter security than baseline Tauri
+CSP cluster sibling).
 
 ---
 

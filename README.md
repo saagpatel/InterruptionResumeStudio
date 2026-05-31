@@ -4,7 +4,7 @@
 
 > The 30 seconds you spend capturing context before you switch tasks is worth more than the 10 minutes you spend reconstructing it afterward.
 
-Interruption Resume Studio is a native desktop app that captures a structured snapshot of your cognitive state the moment you get interrupted — current task, progress, next planned step, energy level, and open questions. When you return, a Resume Card surfaces everything you need to re-enter flow without reconstructing it from scratch. A global shortcut (`Cmd+Shift+I`) opens a lightweight overlay from any app without breaking your current context.
+Interruption Resume Studio is a native desktop app that captures a structured snapshot of your cognitive state the moment you get interrupted — current task, progress, next planned step, energy level, and open questions. When you return, a Resume Card surfaces everything you need to re-enter flow without reconstructing it from scratch. A global shortcut (`Cmd+Shift+Space`) opens a lightweight overlay from any app without breaking your current context.
 
 The app also tracks interruption patterns over time: daily timeline, interruption log with time-lost estimates, and weekly insights broken down by interruption type, energy state, hour of day, and day of week.
 
@@ -12,7 +12,7 @@ The app also tracks interruption patterns over time: daily timeline, interruptio
 
 - **Snapshot capture** — structured form captures task, progress, next step, energy, and open questions in under 30 seconds
 - **Resume Cards** — on return, a card surfaces the full context snapshot so you re-enter flow immediately
-- **Global shortcut** — `Cmd+Shift+I` opens an overlay window without leaving your current app
+- **Global shortcut** — `Cmd+Shift+Space` opens an overlay window without leaving your current app
 - **Day timeline** — visual timeline of snapshots showing interruption gaps throughout the day
 - **Interruption log** — quantified time lost per session
 - **Weekly insights** — breakdowns by interruption type (meeting, Slack, personal, other), energy state, hour, and day

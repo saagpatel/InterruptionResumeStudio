@@ -25,8 +25,8 @@ A native macOS desktop app (Tauri 2.0 + React + TypeScript + SQLite) that captur
 - No network calls anywhere — enforce via Tauri capabilities config
 
 ## Current Phase
-**Phase 0: Scaffold + DB**
-See IMPLEMENTATION-ROADMAP.md for full phase details and acceptance criteria.
+**v1.0.0 — All phases complete (0–3 + Settings/Insights/Import)**
+See IMPLEMENTATION-ROADMAP.md for original phase details and acceptance criteria.
 
 ## Key Decisions
 | Decision | Choice | Why |
@@ -55,8 +55,8 @@ A native macOS desktop app (Tauri 2.0 + React + TypeScript + SQLite) that captur
 
 ## Current State
 
-**Phase 0: Scaffold + DB**
-See IMPLEMENTATION-ROADMAP.md for full phase details and acceptance criteria.
+**v1.0.0 — All phases complete (0–3 + Settings/Insights/Import)**
+See IMPLEMENTATION-ROADMAP.md for original phase details and acceptance criteria.
 
 ## Stack
 

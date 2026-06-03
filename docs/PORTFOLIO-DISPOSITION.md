@@ -6,12 +6,8 @@
 reverse-DNS bundle identifier fix, **CSP unsafe-inline removal**
 (stricter security posture than other Tauri cluster members), and
 full OSS scaffolding wave. Joins signing cluster as **member #25**.
-Note: significant **local uncommitted refactor in flight** (~50+
-files modified) — disposition documents `origin/main` (the canonical
-v1.0.0 ship), not the local in-flight state.
 
 > Disposition uses strict `origin/main` verification.
-> Operator has substantial uncommitted work; document for follow-up.
 
 ---
 
@@ -35,15 +31,7 @@ migration state.
   - `e1b47d2` initial CHANGELOG + scaffolding wave
 - Default branch: `main`
 
-**Local working-tree state (substantial)**: 50+ files modified
-across `.github/`, `CLAUDE.md`, `README.md`, `SECURITY.md`,
-`overlay.html`, `package.json`/`package-lock.json`, `src-tauri/`
-(capabilities, commands, lib.rs, tauri config for all platforms),
-all React components and hooks, lib utilities, store, types, test
-setup. Untracked: `.claude/skills/`, `.codex/`, `AGENTS.md`,
-`pnpm-lock.yaml`. Stashed as `r15-irs-stash`. Operator should
-inspect before discarding — this is a major refactor or feature
-work in flight, not minor drift.
+**Local working-tree state**: Clean — in-flight work from prior sessions has been committed. Working tree matches HEAD.
 
 ---
 
@@ -91,19 +79,16 @@ sibling Tauri cluster members.
 
 ## Unblock trigger (operator)
 
-1. **Decide disposition of substantial local in-flight work**
-   (stashed `r15-irs-stash`, 50+ files). Either commit + push (and
-   potentially cut v1.1), or discard if abandoned.
-2. **Apple Developer ID + notarization credentials wired** (standard
+1. **Apple Developer ID + notarization credentials wired** (standard
    signing cluster prerequisite).
-3. **macOS Accessibility / Screen Recording permissions** — global
+2. **macOS Accessibility / Screen Recording permissions** — global
    shortcuts and nspanel overlay typically require Accessibility
    grant; document install flow.
-4. **`tauri-nspanel` macOS-only?** — verify if cross-platform builds
+3. **`tauri-nspanel` macOS-only?** — verify if cross-platform builds
    (Linux, Windows) are supported or if the app is macOS-only
    (`tauri.linux.conf.json` + `tauri.windows.conf.json` exist in
    the working tree — suggests cross-platform intent).
-5. **Verify signed/notarized DMG** opens cleanly.
+4. **Verify signed/notarized DMG** opens cleanly.
 
 Estimated operator time: ~2-3 hours once credentials + local-state
 decision made.
@@ -118,9 +103,8 @@ decision made.
 | Distribution channel | **DMG via Apple Developer ID** (cross-platform possible) |
 | Version | **v1.0.0** |
 | Review cadence | Suspend overdue counting |
-| Resurface conditions | (a) Local in-flight work disposition, (b) Apple signing credentials, (c) macOS Accessibility permission UX, (d) v1.1 from local work, (e) tauri-nspanel API change |
+| Resurface conditions | (a) Apple signing credentials, (b) macOS Accessibility permission UX, (c) v1.1 feature work, (d) tauri-nspanel API change |
 | Co-batch with | Signing cluster — **now 25 repos** |
-| Special concern | **Substantial uncommitted local work.** Operator decision required before further development. |
 | Special concern | **CSP unsafe-inline removed** — pattern other Tauri cluster members should adopt. |
 | Special concern | **macOS Accessibility grant** for global shortcuts + nspanel overlay. |
 
@@ -128,14 +112,9 @@ decision made.
 
 ## Reactivation procedure
 
-1. Verify branch tracking.
-2. **Review stash `r15-irs-stash` FIRST** — 50+ file refactor /
-   feature work; operator needs to decide disposition.
-3. Untracked: `.claude/skills/`, `.codex/`, `AGENTS.md`,
-   `pnpm-lock.yaml`. The pnpm vs npm switch is operator
-   experimentation (package-lock.json is on canonical main).
-4. Test `tauri-nspanel` overlay behavior on macOS.
-5. Run `cargo test` + `npm test`.
+1. Verify branch tracking and that local HEAD has been pushed to origin.
+2. Test `tauri-nspanel` overlay behavior on macOS.
+3. Run `cargo test` + `npm test`.
 
 ---
 
@@ -147,8 +126,8 @@ decision made.
 | Default branch | `main` |
 | Build system | Tauri 2 + Rust + React + TypeScript + tauri-nspanel |
 | Version | **v1.0.0** |
-| Phases shipped | 0-4 per memory |
+| Phases shipped | 0-3 + Settings/Insights/Import |
 | Notable | **CSP unsafe-inline removed** (`62fe449`) — stricter than baseline Tauri CSP; pattern worth adopting. **Reverse-DNS bundle ID fix** (`0bb6678`). **`tauri-nspanel` for overlay window**. |
-| Local state | **Substantial uncommitted refactor** (50+ files modified) — stashed as `r15-irs-stash` |
+| Local state | Clean — prior in-flight work committed; working tree matches HEAD |
 | Migration state | No `legacy-origin` remote |
 | Distinguishing feature | **25th signing cluster member.** First to remove CSP `unsafe-inline` (stricter security than cluster baseline). nspanel overlay sub-pattern shared with GlassLayer. |

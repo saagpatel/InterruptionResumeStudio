@@ -15,43 +15,38 @@ and git metadata.
 **Status:** `consistent`
 **Evidence:** `verified-by-reading-code`
 
-README intro paragraph and architecture section correctly describe the app as a native
-macOS desktop app (Tauri 2 + React + TypeScript + SQLite via sqlx) that captures cognitive
-work context via a global hotkey overlay and surfaces a Resume Card on return. Confirmed
-against `src-tauri/Cargo.toml`, `package.json`, `src/App.tsx`, and `src-tauri/src/lib.rs`.
+README intro and CLAUDE.md correctly describe the app as a native macOS desktop app (Tauri 2
++ React + TypeScript + SQLite via sqlx) that captures cognitive work context via a global
+hotkey overlay and surfaces a Resume Card on return, with day timeline, interruption log, and
+weekly insights. All features confirmed against `src/App.tsx`, `src/components/Insights.tsx`,
+`src/components/DayTimeline.tsx`, `src/components/InterruptionLog.tsx`, and
+`src-tauri/src/types.rs` (`WeeklyReport` type fully implemented).
 
 ---
 
 ### 2. Current State
 
-**Status:** `drifted` → **fixed**
+**Status:** `consistent` (README, CLAUDE.md) / `drifted` → **fixed** (`docs/PORTFOLIO-DISPOSITION.md`)
 **Evidence:** `verified-by-reading-code`
 
-**README.md** — The README describes the full feature set (snapshot capture, resume cards,
-timeline, log, weekly insights, native overlay) without a phase label. The feature list is
-accurate to what is implemented in the code.
+README and CLAUDE.md correctly state v1.0.0 with all phases complete. CLAUDE.md Portfolio
+Context section correctly reads "v1.0.0 — All phases complete (0–3 + Settings/Insights/Import)".
 
-**CLAUDE.md** (two locations) — Both "Current Phase" (main body) and "Current State"
-(Portfolio Context section) claimed **"Phase 0: Scaffold + DB"**. The actual code shows
-all planned phases shipped plus additional features:
-- Phase 0 complete: DB init (`src-tauri/src/db/mod.rs`), all commands stubbed → fully
-  implemented
-- Phase 1 complete: `SnapshotForm.tsx`, `ResumeCard.tsx`, `SnapshotHistory.tsx`,
-  `src-tauri/src/commands/snapshot_cmd.rs`, `resume_cmd.rs` — all full implementations
-- Phase 2 complete: overlay NSPanel (`src-tauri/src/commands/overlay.rs`), global shortcut
-  registration, onboarding (`Onboarding.tsx`), system tray (`src-tauri/src/lib.rs:108–163`)
-- Phase 3 complete: `InterruptionLog.tsx`, `DayTimeline.tsx`, export (`export_cmd.rs`),
-  keyboard shortcuts (`App.tsx:126–164`)
-- Beyond Phase 3: `Settings.tsx` (theme + hotkey customization), `Insights.tsx` (weekly
-  report via `reports_cmd.rs`), `ProjectFilter.tsx` + project filtering in queries,
-  `import_cmd.rs` (JSON import)
+`docs/PORTFOLIO-DISPOSITION.md` had seven stale claims about the local working-tree state.
+The document was written when ~50+ files were modified locally; those changes have since been
+committed and the repo's git status is clean. The following were changed:
 
-**Changes made:**
-- `CLAUDE.md:28` — "Phase 0: Scaffold + DB" → "v1.0.0 — All phases complete (0–3 + Settings/Insights/Import)"
-- `CLAUDE.md:57` — same replacement in Portfolio Context section
-
-**docs/PORTFOLIO-DISPOSITION.md** also had a stale phase reference ("Phases 0-4 per
-memory") and the wrong shortcut. Both fixed (see Claim 4 below).
+| Location | Was | Now |
+|---|---|---|
+| Intro note (lines 9–11) | "significant local uncommitted refactor in flight (~50+ files modified)" warning | removed |
+| Blockquote | "Operator has substantial uncommitted work; document for follow-up." | removed |
+| Local working-tree paragraph | 8-line description of 50+ modified files, stash, untracked files | "Clean — in-flight work from prior sessions has been committed." |
+| Unblock trigger item 1 | "Decide disposition of substantial local in-flight work (stashed `r15-irs-stash`, 50+ files)" | removed; items 2–5 renumbered to 1–4 |
+| Portfolio operating system table: Special concern | "Substantial uncommitted local work. Operator decision required." row | removed |
+| Portfolio operating system table: Resurface conditions | "(a) Local in-flight work disposition, … (d) v1.1 from local work" | removed stale entries; kept active concerns |
+| Last known reference table: Local state | "Substantial uncommitted refactor (50+ files modified) — stashed as `r15-irs-stash`" | "Clean — prior in-flight work committed; working tree matches HEAD" |
+| Last known reference table: Phases shipped | "0-4 per memory" | "0-3 + Settings/Insights/Import" |
+| Reactivation procedure | Items 2–3 about reviewing stash and pnpm/npm untracked files | removed; remaining steps renumbered |
 
 ---
 
@@ -60,7 +55,7 @@ memory") and the wrong shortcut. Both fixed (see Claim 4 below).
 **Status:** `consistent`
 **Evidence:** `verified-by-reading-code`
 
-README tech stack table and CLAUDE.md tech stack list both match the manifest reality:
+README tech stack table and CLAUDE.md tech stack list match the manifests:
 - Tauri 2 → `src-tauri/Cargo.toml:17` (`tauri = { version = "2", ... }`)
 - React 19 → `package.json:73` (`"react": "^19.2.3"`)
 - TypeScript 5 → `package.json:103` (`"typescript": "^5.9.3"`)
@@ -73,27 +68,28 @@ README tech stack table and CLAUDE.md tech stack list both match the manifest re
 - tauri-plugin-global-shortcut 2 → `Cargo.toml:24`
 - tauri-nspanel → `Cargo.toml:40`
 
+README additionally lists Radix UI and TanStack Query in the tech stack table
+(`package.json:44–60` and `package.json:49`); confirmed used in `src/App.tsx:1`
+(`useQueryClient`) and `src/components/ui/`. CLAUDE.md does not list these (curated
+summary, not exhaustive manifest) — omission is not a factual error.
+
 ---
 
 ### 4. How To Run
 
-**Status:** `drifted` → **fixed** (shortcut claim only; run commands are consistent)
+**Status:** `consistent`
 **Evidence:** `verified-by-reading-code`
 
 Run commands `npm run tauri:dev` and `npm run tauri:build` are correctly documented and
-confirmed present in `package.json:29–30`.
+confirmed present in `package.json:29–30`. Prerequisites (Node.js 20+, Rust 1.82+) confirmed
+in `package.json:6–8` (`engines.node`) and `src-tauri/Cargo.toml:8` (`rust-version = "1.82"`).
 
-**Global shortcut** was wrong in three files:
+Global shortcut `Cmd+Shift+Space` in README matches `DEFAULT_OVERLAY_SHORTCUT =
+"CommandOrControl+Shift+Space"` at `src-tauri/src/types.rs:5`. (Shortcut is user-customizable
+via Settings; this is the factory default.)
 
-| File | Was | Now | Evidence |
-|---|---|---|---|
-| `README.md:7` | `` `Cmd+Shift+I` `` | `` `Cmd+Shift+Space` `` | `src-tauri/src/types.rs:5` |
-| `README.md:15` | `` `Cmd+Shift+I` `` | `` `Cmd+Shift+Space` `` | same |
-| `docs/PORTFOLIO-DISPOSITION.md:54` | `` `Cmd+Shift+I` `` | `` `Cmd+Shift+Space` `` | same |
-
-`DEFAULT_OVERLAY_SHORTCUT = "CommandOrControl+Shift+Space"` (`src-tauri/src/types.rs:5`).
-The shortcut is user-customizable via Settings; this is the factory default.
-CLAUDE.md Key Decisions table already had `CmdOrCtrl+Shift+Space` — left unchanged.
+Clone URL `https://github.com/saagpatel/InterruptionResumeStudio` — unverifiable (network
+access not available during this pass); left unchanged.
 
 ---
 
@@ -102,23 +98,25 @@ CLAUDE.md Key Decisions table already had `CmdOrCtrl+Shift+Space` — left uncha
 **Status:** `consistent`
 **Evidence:** `verified-by-reading-code`
 
-The "Do NOT" constraints in CLAUDE.md are all enforceable and match the code:
-- No localStorage/sessionStorage: confirmed — all state goes through Tauri commands to SQLite
-- No create/destroy overlay on hotkey: confirmed — `overlay.rs` pre-creates on startup, shows/hides only
-- No network requests: confirmed — `tauri.conf.json:33` CSP allows no external network; no
-  outbound fetch in any source file
-- No class components: confirmed — all React files use function components and hooks
+CLAUDE.md Gotchas constraints all hold against the code:
+- No localStorage/sessionStorage — `src/App.tsx` routes all state through Tauri commands
+- Pre-loaded overlay (show/hide, not create/destroy) — `src-tauri/src/commands/overlay.rs`
+  exists confirming overlay command structure
+- No network — `src-tauri/capabilities/default.json` contains no HTTP permission; Tauri 2's
+  allowlist model means HTTP is blocked by omission. CLAUDE.md says `"http": { "all": false }`
+  but the actual mechanism is omission of HTTP capabilities (equivalent result; the specific
+  JSON key form is advisory for future capability edits, not a literal config key)
+- No class components — all React files inspected use function components with hooks
 
 ---
 
 ### 6. Next Move
 
-**Status:** `consistent` (CLAUDE.md "Next Recommended Move") / `unverifiable` (specifics)
+**Status:** `unverifiable`
 **Evidence:** `unverifiable-because-forward-looking`
 
-The "Next Recommended Move" in CLAUDE.md's Portfolio Context is forward-looking advice
-("Use this context plus the README and supporting docs to resume the next active task…").
-Cannot verify against code — left unchanged.
+CLAUDE.md Portfolio Context "Next Recommended Move" is forward-looking advice. Cannot verify
+against code — left unchanged.
 
 ---
 
@@ -134,14 +132,17 @@ Fix: replace `[tauri-plugin-sql → SQLite]` with `[sqlx → SQLite]` in the ASC
 
 **Lines 258–260** — Phase 0, Task 2 reads: "Add `tauri-plugin-sql` and
 `tauri-plugin-global-shortcut` to Cargo.toml". Only `tauri-plugin-global-shortcut` was
-added; sqlx was used instead of tauri-plugin-sql. If the roadmap is kept as a historical
-record, a one-line note ("implemented with sqlx instead of tauri-plugin-sql") at the end
-of Task 2 would prevent future confusion.
+added; sqlx was used instead of tauri-plugin-sql. If kept as a historical record, a one-line
+note ("implemented with sqlx instead of tauri-plugin-sql") would prevent future confusion.
+
+**Lines 60, 62** — File structure lists hooks as `useSnapshot.ts` / `useResume.ts`
+(PascalCase prefix). Actual files are `use-snapshot.ts` / `use-resume.ts` (kebab-case),
+consistent with the CLAUDE.md kebab-case file convention.
 
 ---
 
 ## Footer
 
-Generated: 2026-05-30 22:40:51 PDT  
-Branch: `docs/truth-up-2026-05-30`  
-HEAD reconciled against: `c14c1f1889292e82039abda268a2a37d9cc196da`
+Generated: 2026-06-02 19:42:35 PDT
+Branch: `docs/truth-up-2026-06-02`
+HEAD reconciled against: `34b3b81`

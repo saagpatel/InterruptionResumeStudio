@@ -1,9 +1,7 @@
 use sqlx::SqlitePool;
 use tauri::{AppHandle, Manager};
 
-use crate::types::{
-    DayCount, EnergyCount, HourCount, TypeBreakdown, WeeklyReport,
-};
+use crate::types::{DayCount, EnergyCount, HourCount, TypeBreakdown, WeeklyReport};
 
 const DAY_NAMES: [&str; 7] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 

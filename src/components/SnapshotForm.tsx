@@ -98,7 +98,7 @@ export function SnapshotForm({ onSaved, compact }: SnapshotFormProps) {
 				<div>
 					<h2 className="text-xl font-bold">Capture Context</h2>
 					<p className="text-sm text-muted-foreground">
-						Save what you're working on before switching context.
+						Save what you&apos;re working on before switching context.
 					</p>
 				</div>
 			)}
@@ -128,7 +128,7 @@ export function SnapshotForm({ onSaved, compact }: SnapshotFormProps) {
 				</div>
 
 				<div className="space-y-2">
-					<Label htmlFor="next-step">What's the next thing to do?</Label>
+					<Label htmlFor="next-step">What&apos;s the next thing to do?</Label>
 					<Textarea
 						id="next-step"
 						placeholder="Add error handling and write tests..."
@@ -139,7 +139,7 @@ export function SnapshotForm({ onSaved, compact }: SnapshotFormProps) {
 				</div>
 
 				<div className="space-y-2">
-					<Label>How's your energy?</Label>
+					<Label>How&apos;s your energy?</Label>
 					<EnergyPicker value={energyState} onChange={setEnergyState} />
 				</div>
 			</div>

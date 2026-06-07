@@ -18,7 +18,7 @@ Object.defineProperty(window, "matchMedia", {
 
 // Mock Tauri APIs for tests
 vi.mock("@tauri-apps/api/event", () => ({
-	listen: vi.fn().mockResolvedValue(() => {}),
+	listen: vi.fn().mockResolvedValue(() => undefined),
 }));
 
 vi.mock("@tauri-apps/plugin-dialog", () => ({
@@ -27,7 +27,7 @@ vi.mock("@tauri-apps/plugin-dialog", () => ({
 
 vi.mock("@tauri-apps/api/window", () => ({
 	getCurrentWindow: vi.fn().mockReturnValue({
-		onFocusChanged: vi.fn().mockResolvedValue(() => {}),
+		onFocusChanged: vi.fn().mockResolvedValue(() => undefined),
 	}),
 }));
 

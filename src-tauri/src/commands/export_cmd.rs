@@ -8,15 +8,14 @@ use crate::types::Snapshot;
 pub async fn export_snapshots(app: AppHandle, path: String) -> Result<i32, String> {
     let pool = app.state::<SqlitePool>();
 
-    let snapshots = sqlx::query_as::<_, Snapshot>(
-        "SELECT * FROM snapshots ORDER BY created_at DESC",
-    )
-    .fetch_all(pool.inner())
-    .await
-    .map_err(|e| {
-        log::error!("Failed to query snapshots for export: {e}");
-        format!("Failed to query snapshots: {e}")
-    })?;
+    let snapshots =
+        sqlx::query_as::<_, Snapshot>("SELECT * FROM snapshots ORDER BY created_at DESC")
+            .fetch_all(pool.inner())
+            .await
+            .map_err(|e| {
+                log::error!("Failed to query snapshots for export: {e}");
+                format!("Failed to query snapshots: {e}")
+            })?;
 
     let count = snapshots.len() as i32;
 

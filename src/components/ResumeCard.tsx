@@ -50,7 +50,7 @@ export function ResumeCard() {
 				<div className="mb-4 text-4xl">📋</div>
 				<h2 className="text-xl font-bold mb-2">No active context</h2>
 				<p className="text-muted-foreground mb-6">
-					You don't have any unresumed snapshots.
+					You don&apos;t have any unresumed snapshots.
 				</p>
 				<Button
 					className="cursor-pointer"
@@ -82,7 +82,7 @@ export function ResumeCard() {
 		<div className="mx-auto max-w-lg">
 			{is_stale && (
 				<div className="mb-4 rounded-md bg-amber-500/10 border border-amber-500/30 px-4 py-3 text-sm text-amber-700 dark:text-amber-400">
-					You've been away for a while — here's where you left off.
+					You&apos;ve been away for a while — here&apos;s where you left off.
 				</div>
 			)}
 

@@ -40,25 +40,23 @@ pub fn run() {
         );
     }
 
-    app_builder = app_builder
-        .plugin(tauri_plugin_process::init())
-        .plugin(
-            tauri_plugin_log::Builder::new()
-                .level(if cfg!(debug_assertions) {
-                    log::LevelFilter::Debug
-                } else {
-                    log::LevelFilter::Info
-                })
-                .targets([
-                    tauri_plugin_log::Target::new(tauri_plugin_log::TargetKind::Stdout),
-                    tauri_plugin_log::Target::new(tauri_plugin_log::TargetKind::Webview),
-                    #[cfg(target_os = "macos")]
-                    tauri_plugin_log::Target::new(tauri_plugin_log::TargetKind::LogDir {
-                        file_name: None,
-                    }),
-                ])
-                .build(),
-        );
+    app_builder = app_builder.plugin(tauri_plugin_process::init()).plugin(
+        tauri_plugin_log::Builder::new()
+            .level(if cfg!(debug_assertions) {
+                log::LevelFilter::Debug
+            } else {
+                log::LevelFilter::Info
+            })
+            .targets([
+                tauri_plugin_log::Target::new(tauri_plugin_log::TargetKind::Stdout),
+                tauri_plugin_log::Target::new(tauri_plugin_log::TargetKind::Webview),
+                #[cfg(target_os = "macos")]
+                tauri_plugin_log::Target::new(tauri_plugin_log::TargetKind::LogDir {
+                    file_name: None,
+                }),
+            ])
+            .build(),
+    );
 
     #[cfg(target_os = "macos")]
     {
@@ -93,10 +91,7 @@ pub fn run() {
                     .unwrap_or(DEFAULT_OVERLAY_SHORTCUT);
 
                 log::info!("Registering overlay shortcut: {shortcut_to_register}");
-                commands::overlay::register_overlay_shortcut(
-                    app.handle(),
-                    shortcut_to_register,
-                )?;
+                commands::overlay::register_overlay_shortcut(app.handle(), shortcut_to_register)?;
             }
 
             // Create overlay window (hidden) — pre-loaded for <200ms appear time
@@ -114,11 +109,9 @@ pub fn run() {
             )?;
             let resume_last =
                 MenuItem::with_id(app, "resume_last", "Resume Last", true, None::<&str>)?;
-            let show_app =
-                MenuItem::with_id(app, "show_app", "Show App", true, None::<&str>)?;
+            let show_app = MenuItem::with_id(app, "show_app", "Show App", true, None::<&str>)?;
             let separator = PredefinedMenuItem::separator(app)?;
-            let quit =
-                MenuItem::with_id(app, "quit", "Quit", true, Some("CmdOrCtrl+Q"))?;
+            let quit = MenuItem::with_id(app, "quit", "Quit", true, Some("CmdOrCtrl+Q"))?;
 
             let menu = Menu::with_items(
                 app,

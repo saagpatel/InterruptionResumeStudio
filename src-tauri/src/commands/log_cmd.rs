@@ -54,10 +54,7 @@ pub async fn get_interruption_log(
         .collect();
 
     let total_interruptions = entries.len() as i32;
-    let total_time_lost_seconds = entries
-        .iter()
-        .filter_map(|e| e.time_away_seconds)
-        .sum();
+    let total_time_lost_seconds = entries.iter().filter_map(|e| e.time_away_seconds).sum();
 
     Ok(InterruptionLogResult {
         entries,

@@ -104,7 +104,7 @@ function FirstSnapshotStep({ onNext }: { onNext: () => void }) {
 				</div>
 				<CardTitle className="text-xl">Take Your First Snapshot</CardTitle>
 				<CardDescription>
-					Try capturing your current context. Don't worry — this is just
+					Try capturing your current context. Don&apos;t worry — this is just
 					practice.
 				</CardDescription>
 			</CardHeader>
@@ -122,7 +122,7 @@ function TestHotkeyStep({ onFinish }: { onFinish: () => void }) {
 				<div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-green-500/10">
 					<Keyboard className="size-7 text-green-600" />
 				</div>
-				<CardTitle className="text-xl">You're All Set</CardTitle>
+				<CardTitle className="text-xl">You&apos;re All Set</CardTitle>
 				<CardDescription>
 					Try pressing the hotkey from any app to open the quick capture
 					overlay.

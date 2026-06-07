@@ -21,7 +21,7 @@ export function Settings() {
 	const { data: prefs } = usePreferences();
 	const queryClient = useQueryClient();
 
-	const [shortcut, setShortcut] = useState("");
+	const [draftShortcut, setDraftShortcut] = useState<string | null>(null);
 	const [recording, setRecording] = useState(false);
 	const [defaultShortcut, setDefaultShortcut] = useState("");
 
@@ -29,11 +29,8 @@ export function Settings() {
 		commands.getDefaultOverlayShortcut().then(setDefaultShortcut);
 	}, []);
 
-	useEffect(() => {
-		if (prefs) {
-			setShortcut(prefs.overlay_shortcut ?? defaultShortcut);
-		}
-	}, [prefs, defaultShortcut]);
+	const savedShortcut = prefs?.overlay_shortcut ?? defaultShortcut;
+	const shortcut = draftShortcut ?? savedShortcut;
 
 	const handleKeyDown = (e: React.KeyboardEvent) => {
 		if (!recording) return;
@@ -49,7 +46,7 @@ export function Settings() {
 		}
 
 		if (parts.length >= 2) {
-			setShortcut(parts.join("+"));
+			setDraftShortcut(parts.join("+"));
 			setRecording(false);
 		}
 	};
@@ -61,6 +58,7 @@ export function Settings() {
 				theme: prefs?.theme ?? "system",
 				overlay_shortcut: shortcut,
 			});
+			setDraftShortcut(shortcut);
 			queryClient.invalidateQueries({ queryKey: ["preferences"] });
 			toast.success("Shortcut updated");
 		} else {
@@ -75,7 +73,7 @@ export function Settings() {
 				theme: prefs?.theme ?? "system",
 				overlay_shortcut: null,
 			});
-			setShortcut(defaultShortcut);
+			setDraftShortcut(defaultShortcut);
 			queryClient.invalidateQueries({ queryKey: ["preferences"] });
 			toast.success("Shortcut reset to default");
 		}
@@ -146,9 +144,7 @@ export function Settings() {
 							<Button
 								variant="outline"
 								onClick={handleSave}
-								disabled={
-									shortcut === (prefs?.overlay_shortcut ?? defaultShortcut)
-								}
+								disabled={shortcut === savedShortcut}
 								className="cursor-pointer"
 							>
 								Save

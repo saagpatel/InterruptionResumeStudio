@@ -25,16 +25,15 @@ pub async fn get_resume_card(app: AppHandle) -> Result<Option<ResumeCard>, Strin
     };
 
     // Calculate seconds elapsed since snapshot was created using SQLite julianday
-    let away_seconds: i32 = sqlx::query_scalar(
-        "SELECT CAST((julianday('now') - julianday(?)) * 86400 AS INTEGER)",
-    )
-    .bind(&snapshot.created_at)
-    .fetch_one(pool.inner())
-    .await
-    .map_err(|e| {
-        log::error!("Failed to calculate away duration: {e}");
-        format!("Failed to calculate away duration: {e}")
-    })?;
+    let away_seconds: i32 =
+        sqlx::query_scalar("SELECT CAST((julianday('now') - julianday(?)) * 86400 AS INTEGER)")
+            .bind(&snapshot.created_at)
+            .fetch_one(pool.inner())
+            .await
+            .map_err(|e| {
+                log::error!("Failed to calculate away duration: {e}");
+                format!("Failed to calculate away duration: {e}")
+            })?;
 
     Ok(Some(ResumeCard {
         is_stale: away_seconds > 900, // >15 minutes

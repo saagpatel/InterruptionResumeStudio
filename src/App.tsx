@@ -51,6 +51,8 @@ const NAV_ITEMS: {
 	{ view: "settings", label: "Settings", icon: Settings2, shortcut: "S" },
 ];
 
+const noop = () => undefined;
+
 function AppContent() {
 	const { data: onboardingComplete, isLoading: onboardingLoading } =
 		useAppState("onboarding_complete");
@@ -176,7 +178,7 @@ function AppContent() {
 	}
 
 	if (!onboardingComplete) {
-		return <Onboarding onComplete={() => {}} />;
+		return <Onboarding onComplete={noop} />;
 	}
 
 	return (
